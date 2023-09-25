@@ -18,6 +18,11 @@ public class PlayerMovement : MonoBehaviour
     public GameObject resetButton;
     public LayerMask wallJumpLayerMask;
     public Vector3 wallBoxSize;
+    public AudioClip marioDeath;
+
+    // state
+    [System.NonSerialized]
+    public bool alive = true;
 
     // Start is called before the first frame update
     void Start()
@@ -28,6 +33,7 @@ public class PlayerMovement : MonoBehaviour
         marioBody = GetComponent<Rigidbody2D>();
 
         marioAnimator = GetComponent<Animator>();
+        marioAnimator.SetBool("onGround", onGroundState);
     }
 
     // Update is called once per frame
@@ -38,20 +44,26 @@ public class PlayerMovement : MonoBehaviour
         {
             faceRightState = false;
             marioSprite.flipX = true;
+            if (marioBody.velocity.x > 0.05f)
+                marioAnimator.SetTrigger("onSkid");
         }
 
         if (Input.GetKeyDown("d") && !faceRightState)
         {
             faceRightState = true;
             marioSprite.flipX = false;
+            if (marioBody.velocity.x < -0.05f)
+                marioAnimator.SetTrigger("onSkid");
         }
         marioAnimator.SetFloat("marioSpeed", Mathf.Abs(marioBody.velocity.x));
     }
     public float upSpeed = 20;
+    public float deathImpulse = 10;
     public float maxFallSpeed = 10;
     public float defaultGravity = 1;
     public float fallGravity = 3;
     private bool onGroundState = true;
+
     // Pick out layers to check collison
     int collisionLayerMask = (1 << 3) | (1 << 6) | (1 << 7);
 
@@ -69,6 +81,8 @@ public class PlayerMovement : MonoBehaviour
     // FixedUpdate may be called once per frame. See documentation for details.
     void FixedUpdate()
     {
+        if (alive)
+        {
         float moveHorizontal = Input.GetAxisRaw("Horizontal");
 
         if (Mathf.Abs(moveHorizontal) > 0)
@@ -93,19 +107,16 @@ public class PlayerMovement : MonoBehaviour
 
         // alternative grounded check
         onGroundState = Physics2D.BoxCast(transform.position, jumpOverGoomba.boxSize, 0, -transform.up, jumpOverGoomba.maxDistance, collisionLayerMask);
-
+        if (onGroundState) {marioAnimator.SetBool("onGround", onGroundState);}
 
         // wall jump
-
-        if (!onGroundState && Input.GetKeyDown("space"))
-        {
-            if (Physics2D.BoxCast(transform.position, wallBoxSize, 0, transform.right, 0.5f, wallJumpLayerMask))
-            {
+        
+        if (!onGroundState && Input.GetKeyDown("space")) {
+            if (Physics2D.BoxCast(transform.position, wallBoxSize, 0, transform.right, 0.5f, wallJumpLayerMask)) {
                 marioBody.velocity = Vector2.zero;
                 marioBody.AddForce(new Vector2(-10, upSpeed), ForceMode2D.Impulse);
             }
-            else if (Physics2D.BoxCast(transform.position, wallBoxSize, 0, -transform.right, 0.5f, wallJumpLayerMask))
-            {
+            else if (Physics2D.BoxCast(transform.position, wallBoxSize, 0, -transform.right, 0.5f, wallJumpLayerMask)) {
                 marioBody.velocity = Vector2.zero;
                 marioBody.AddForce(new Vector2(10, upSpeed), ForceMode2D.Impulse);
             }
@@ -115,21 +126,28 @@ public class PlayerMovement : MonoBehaviour
         {
             marioBody.AddForce(Vector2.up * upSpeed, ForceMode2D.Impulse);
             onGroundState = false;
+            marioAnimator.SetBool("onGround", onGroundState);
         }
 
         // Variable Jump height
-        if ((!Input.GetKey("space") && !onGroundState) || marioBody.velocity.y < 0)
-        {
-
+        if ((!Input.GetKey("space") && !onGroundState ) || marioBody.velocity.y < 0) {
+            
             marioBody.gravityScale = fallGravity;
             // Fall speed cap
             marioBody.velocity = new Vector2(marioBody.velocity.x, Mathf.Max(marioBody.velocity.y, -maxFallSpeed));
-        }
-        else
-        {
+        } else {
             marioBody.gravityScale = defaultGravity;
         }
+    }
+    }
 
+    // for audio
+    public AudioSource marioAudio;
+
+        void PlayJumpSound()
+    {
+        // play jump sound
+        marioAudio.PlayOneShot(marioAudio.clip);
     }
 
     // helper
@@ -142,13 +160,24 @@ public class PlayerMovement : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.gameObject.CompareTag("Enemy"))
+        if (other.gameObject.CompareTag("Enemy") && alive)
         {
+            // play death animation
+            marioAnimator.Play("mario-die");
+            marioAudio.PlayOneShot(marioDeath);
+            alive = false;
+        }
+    }
+
+    public void GameOverScene() {
             gameOverScreen.SetActive(true);
             scoreText.transform.localPosition = new Vector3(100f, 90f, 0f);
             resetButton.transform.localPosition = new Vector3(0f, -35f, 0f);
             Time.timeScale = 0.0f;
-        }
+    }
+    void PlayDeathImpulse()
+    {
+        marioBody.AddForce(Vector2.up * deathImpulse, ForceMode2D.Impulse);
     }
     public void RestartButtonCallback(int input)
     {
@@ -157,6 +186,7 @@ public class PlayerMovement : MonoBehaviour
         // resume time
         Time.timeScale = 1.0f;
     }
+
     public Transform gameCamera;
     private void ResetGame()
     {
@@ -173,6 +203,10 @@ public class PlayerMovement : MonoBehaviour
         {
             eachChild.transform.localPosition = eachChild.GetComponent<EnemyMovement>().startPosition;
         }
+        // reset animation
+        marioAnimator.SetTrigger("gameRestart");
+        alive = true;
+        
         gameOverScreen.SetActive(false);
         scoreText.transform.localPosition = new Vector3(-660f, 490f, 0f);
         resetButton.transform.localPosition = new Vector3(880f, 490f, 0f);
