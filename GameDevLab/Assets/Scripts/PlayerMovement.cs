@@ -93,16 +93,19 @@ public class PlayerMovement : MonoBehaviour
 
         // alternative grounded check
         onGroundState = Physics2D.BoxCast(transform.position, jumpOverGoomba.boxSize, 0, -transform.up, jumpOverGoomba.maxDistance, collisionLayerMask);
-        
+
 
         // wall jump
-        
-        if (!onGroundState && Input.GetKeyDown("space")) {
-            if (Physics2D.BoxCast(transform.position, wallBoxSize, 0, transform.right, 0.5f, wallJumpLayerMask)) {
+
+        if (!onGroundState && Input.GetKeyDown("space"))
+        {
+            if (Physics2D.BoxCast(transform.position, wallBoxSize, 0, transform.right, 0.5f, wallJumpLayerMask))
+            {
                 marioBody.velocity = Vector2.zero;
                 marioBody.AddForce(new Vector2(-10, upSpeed), ForceMode2D.Impulse);
             }
-            else if (Physics2D.BoxCast(transform.position, wallBoxSize, 0, -transform.right, 0.5f, wallJumpLayerMask)) {
+            else if (Physics2D.BoxCast(transform.position, wallBoxSize, 0, -transform.right, 0.5f, wallJumpLayerMask))
+            {
                 marioBody.velocity = Vector2.zero;
                 marioBody.AddForce(new Vector2(10, upSpeed), ForceMode2D.Impulse);
             }
@@ -115,12 +118,15 @@ public class PlayerMovement : MonoBehaviour
         }
 
         // Variable Jump height
-        if ((!Input.GetKey("space") && !onGroundState ) || marioBody.velocity.y < 0) {
-            
+        if ((!Input.GetKey("space") && !onGroundState) || marioBody.velocity.y < 0)
+        {
+
             marioBody.gravityScale = fallGravity;
             // Fall speed cap
             marioBody.velocity = new Vector2(marioBody.velocity.x, Mathf.Max(marioBody.velocity.y, -maxFallSpeed));
-        } else {
+        }
+        else
+        {
             marioBody.gravityScale = defaultGravity;
         }
 
@@ -151,7 +157,7 @@ public class PlayerMovement : MonoBehaviour
         // resume time
         Time.timeScale = 1.0f;
     }
-
+    public Transform gameCamera;
     private void ResetGame()
     {
         // reset position
@@ -170,5 +176,7 @@ public class PlayerMovement : MonoBehaviour
         gameOverScreen.SetActive(false);
         scoreText.transform.localPosition = new Vector3(-660f, 490f, 0f);
         resetButton.transform.localPosition = new Vector3(880f, 490f, 0f);
+        // reset camera position
+        gameCamera.position = new Vector3(0, 0, -10);
     }
 }
