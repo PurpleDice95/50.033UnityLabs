@@ -520,9 +520,9 @@ MonoBehaviour:
   jumpOverGoomba: {fileID: 431005427}
   gameOverScreen: {fileID: 1737118258}
   resetButton: {fileID: 1880376287}
-  layerMask:
+  wallJumpLayerMask:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
   wallBoxSize: {x: 0.3, y: 0.8, z: 1}
   upSpeed: 22
   maxFallSpeed: 10
@@ -1111,7 +1111,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -669, y: 490}
+  m_AnchoredPosition: {x: -196.27, y: 173}
   m_SizeDelta: {x: 492.5379, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &604328914
@@ -1962,7 +1962,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 880, y: 490}
+  m_AnchoredPosition: {x: 404, y: 173}
   m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1880376289
