@@ -495,6 +495,7 @@ GameObject:
   - component: {fileID: 431005422}
   - component: {fileID: 431005426}
   - component: {fileID: 431005427}
+  - component: {fileID: 431005428}
   m_Layer: 0
   m_Name: Mario
   m_TagString: Untagged
@@ -522,7 +523,7 @@ MonoBehaviour:
   resetButton: {fileID: 1880376287}
   wallJumpLayerMask:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   wallBoxSize: {x: 0.3, y: 0.8, z: 1}
   upSpeed: 22
   maxFallSpeed: 10
@@ -687,6 +688,27 @@ MonoBehaviour:
   layerMask:
     serializedVersion: 2
     m_Bits: 8
+--- !u!95 &431005428
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431005421}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 275e6e459a0a3f04a803ad88b414b02e, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &445881529
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1111,7 +1133,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -196.27, y: 173}
+  m_AnchoredPosition: {x: -669, y: 490}
   m_SizeDelta: {x: 492.5379, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &604328914
@@ -1962,7 +1984,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 404, y: 173}
+  m_AnchoredPosition: {x: 880, y: 490}
   m_SizeDelta: {x: 70, y: 70}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1880376289

@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
 {
     public float speed = 10;
     private Rigidbody2D marioBody;
+    private Animator marioAnimator;
     private SpriteRenderer marioSprite;
     private bool faceRightState = true;
     public TextMeshProUGUI scoreText;
@@ -26,6 +27,7 @@ public class PlayerMovement : MonoBehaviour
         Application.targetFrameRate = 30;
         marioBody = GetComponent<Rigidbody2D>();
 
+        marioAnimator = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -43,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
             faceRightState = true;
             marioSprite.flipX = false;
         }
+        marioAnimator.SetFloat("marioSpeed", Mathf.Abs(marioBody.velocity.x));
     }
     public float upSpeed = 20;
     public float maxFallSpeed = 10;
