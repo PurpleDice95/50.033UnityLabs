@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
+using Unity.VisualScripting;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -13,7 +14,9 @@ public class PlayerMovement : MonoBehaviour
     private bool faceRightState = true;
     public TextMeshProUGUI scoreText;
     public GameObject enemies;
+    public GameObject obstacles;
     public JumpOverGoomba jumpOverGoomba;
+    public Transform gameCamera;
     public GameObject gameOverScreen;
     public GameObject resetButton;
     public LayerMask wallJumpLayerMask;
@@ -83,68 +86,74 @@ public class PlayerMovement : MonoBehaviour
     {
         if (alive)
         {
-        float moveHorizontal = Input.GetAxisRaw("Horizontal");
+            float moveHorizontal = Input.GetAxisRaw("Horizontal");
 
-        if (Mathf.Abs(moveHorizontal) > 0)
-        {
-            Vector2 movement = new Vector2(moveHorizontal, 0);
-            // check if it doesn't go beyond maxSpeed
-            if (marioBody.velocity.x < maxSpeed)
-                marioBody.AddForce(movement * speed);
-        }
+            if (Mathf.Abs(moveHorizontal) > 0)
+            {
+                Vector2 movement = new Vector2(moveHorizontal, 0);
+                // check if it doesn't go beyond maxSpeed
+                if (marioBody.velocity.x < maxSpeed)
+                    marioBody.AddForce(movement * speed);
+            }
 
-        // stop
-        if (Input.GetKeyUp("a") || Input.GetKeyUp("d"))
-        {
             // stop
-            marioBody.velocity = new Vector2(0, marioBody.velocity.y);
-        }
-
-
-
-
-
-
-        // alternative grounded check
-        onGroundState = Physics2D.BoxCast(transform.position, jumpOverGoomba.boxSize, 0, -transform.up, jumpOverGoomba.maxDistance, collisionLayerMask);
-        if (onGroundState) {marioAnimator.SetBool("onGround", onGroundState);}
-
-        // wall jump
-        
-        if (!onGroundState && Input.GetKeyDown("space")) {
-            if (Physics2D.BoxCast(transform.position, wallBoxSize, 0, transform.right, 0.5f, wallJumpLayerMask)) {
-                marioBody.velocity = Vector2.zero;
-                marioBody.AddForce(new Vector2(-10, upSpeed), ForceMode2D.Impulse);
+            if (Input.GetKeyUp("a") || Input.GetKeyUp("d"))
+            {
+                // stop
+                marioBody.velocity = new Vector2(0, marioBody.velocity.y);
             }
-            else if (Physics2D.BoxCast(transform.position, wallBoxSize, 0, -transform.right, 0.5f, wallJumpLayerMask)) {
-                marioBody.velocity = Vector2.zero;
-                marioBody.AddForce(new Vector2(10, upSpeed), ForceMode2D.Impulse);
+
+
+
+
+
+
+            // alternative grounded check
+            onGroundState = Physics2D.BoxCast(transform.position, jumpOverGoomba.boxSize, 0, -transform.up, jumpOverGoomba.maxDistance, collisionLayerMask);
+            if (onGroundState) { marioAnimator.SetBool("onGround", onGroundState); }
+
+            // wall jump
+
+            if (!onGroundState && Input.GetKeyDown("space"))
+            {
+                if (Physics2D.BoxCast(transform.position, wallBoxSize, 0, transform.right, 0.5f, wallJumpLayerMask))
+                {
+                    marioBody.velocity = Vector2.zero;
+                    marioBody.AddForce(new Vector2(-10, upSpeed), ForceMode2D.Impulse);
+                }
+                else if (Physics2D.BoxCast(transform.position, wallBoxSize, 0, -transform.right, 0.5f, wallJumpLayerMask))
+                {
+                    marioBody.velocity = Vector2.zero;
+                    marioBody.AddForce(new Vector2(10, upSpeed), ForceMode2D.Impulse);
+                }
+            }
+
+            if (Input.GetKeyDown("space") && onGroundState)
+            {
+                marioBody.AddForce(Vector2.up * upSpeed, ForceMode2D.Impulse);
+                onGroundState = false;
+                marioAnimator.SetBool("onGround", onGroundState);
+            }
+
+            // Variable Jump height
+            if ((!Input.GetKey("space") && !onGroundState) || marioBody.velocity.y < 0)
+            {
+
+                marioBody.gravityScale = fallGravity;
+                // Fall speed cap
+                marioBody.velocity = new Vector2(marioBody.velocity.x, Mathf.Max(marioBody.velocity.y, -maxFallSpeed));
+            }
+            else
+            {
+                marioBody.gravityScale = defaultGravity;
             }
         }
-
-        if (Input.GetKeyDown("space") && onGroundState)
-        {
-            marioBody.AddForce(Vector2.up * upSpeed, ForceMode2D.Impulse);
-            onGroundState = false;
-            marioAnimator.SetBool("onGround", onGroundState);
-        }
-
-        // Variable Jump height
-        if ((!Input.GetKey("space") && !onGroundState ) || marioBody.velocity.y < 0) {
-            
-            marioBody.gravityScale = fallGravity;
-            // Fall speed cap
-            marioBody.velocity = new Vector2(marioBody.velocity.x, Mathf.Max(marioBody.velocity.y, -maxFallSpeed));
-        } else {
-            marioBody.gravityScale = defaultGravity;
-        }
-    }
     }
 
     // for audio
     public AudioSource marioAudio;
 
-        void PlayJumpSound()
+    void PlayJumpSound()
     {
         // play jump sound
         marioAudio.PlayOneShot(marioAudio.clip);
@@ -169,11 +178,12 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-    public void GameOverScene() {
-            gameOverScreen.SetActive(true);
-            scoreText.transform.localPosition = new Vector3(100f, 90f, 0f);
-            resetButton.transform.localPosition = new Vector3(0f, -35f, 0f);
-            Time.timeScale = 0.0f;
+    public void GameOverScene()
+    {
+        gameOverScreen.SetActive(true);
+        scoreText.transform.localPosition = new Vector3(100f, 90f, 0f);
+        resetButton.transform.localPosition = new Vector3(0f, -35f, 0f);
+        Time.timeScale = 0.0f;
     }
     void PlayDeathImpulse()
     {
@@ -187,7 +197,6 @@ public class PlayerMovement : MonoBehaviour
         Time.timeScale = 1.0f;
     }
 
-    public Transform gameCamera;
     private void ResetGame()
     {
         // reset position
@@ -203,14 +212,21 @@ public class PlayerMovement : MonoBehaviour
         {
             eachChild.transform.localPosition = eachChild.GetComponent<EnemyMovement>().startPosition;
         }
+        // reset blocks
+        foreach (Transform eachChild in obstacles.transform)
+        {
+            CoinHandler boxCoinHandler = eachChild.GetChild(0).gameObject.GetComponent<CoinHandler>();
+            if (boxCoinHandler.hasCoin) { boxCoinHandler.spawnedCoin = false; }
+        }
+
         // reset animation
         marioAnimator.SetTrigger("gameRestart");
         alive = true;
-        
+        // reset camera position
+        gameCamera.position = new Vector3(0, 0, -10);
+
         gameOverScreen.SetActive(false);
         scoreText.transform.localPosition = new Vector3(-660f, 490f, 0f);
         resetButton.transform.localPosition = new Vector3(880f, 490f, 0f);
-        // reset camera position
-        gameCamera.position = new Vector3(0, 0, -10);
     }
 }
