@@ -10,11 +10,14 @@ public class QuestionBlockController : MonoBehaviour
     private Rigidbody2D qBlockBody;
     private float startPos;
 
+    private Animator questionBoxAnimator;
+
     // Start is called before the first frame update
     void Start()
     {
         qBlockBody = GetComponent<Rigidbody2D>();
         startPos = qBlockBody.transform.position.y;
+        questionBoxAnimator = GetComponent<Animator>();
     }
 
 
@@ -24,6 +27,7 @@ public class QuestionBlockController : MonoBehaviour
         if (coinHandler.spawnedCoin && qBlockBody.transform.position.y <= startPos + 0.01)
         {
             qBlockBody.bodyType = RigidbodyType2D.Static;
+            questionBoxAnimator.SetTrigger("Collected");
         }
         else
         {

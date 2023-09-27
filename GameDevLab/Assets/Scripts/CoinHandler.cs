@@ -7,6 +7,13 @@ public class CoinHandler : MonoBehaviour
     public bool hasCoin = true;
     public bool spawnedCoin = false;
     public GameObject coinPrefab;
+    private Animator questionBoxAnimator;
+
+    void Start()
+    {
+        questionBoxAnimator = GetComponent<Animator>();
+
+    }
 
     void OnCollisionEnter2D(Collision2D col)
     {
@@ -18,6 +25,7 @@ public class CoinHandler : MonoBehaviour
         {
             spawnedCoin = true;
             Instantiate(coinPrefab, transform.position, Quaternion.identity);
+            questionBoxAnimator.SetTrigger("Collected");
         }
     }
 
