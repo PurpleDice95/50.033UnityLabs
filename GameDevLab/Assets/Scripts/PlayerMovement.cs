@@ -198,6 +198,7 @@ public class PlayerMovement : MonoBehaviour
         Gizmos.color = Color.red;
         Gizmos.DrawCube(transform.position + transform.right * 0.5f, wallBoxSize);
         Gizmos.DrawCube(transform.position - transform.right * 0.5f, wallBoxSize);
+        
     }
 
     void OnTriggerEnter2D(Collider2D other)
@@ -205,6 +206,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy") && alive)
         {
             // play death animation
+            gameManager.MarioDeath();
             marioAnimator.Play("mario-die");
             marioDeath.PlayOneShot(marioDeath.clip);
             alive = false;
@@ -213,56 +215,12 @@ public class PlayerMovement : MonoBehaviour
 
     public void GameOverScene()
     {
-    //     gameOverScreen.SetActive(true);
-    //     scoreText.transform.localPosition = new Vector3(100f, 90f, 0f);
-    //     resetButton.transform.localPosition = new Vector3(0f, -35f, 0f);
-    //     Time.timeScale = 0.0f;
         gameManager.GameOver();
     }
     void PlayDeathImpulse()
     {
         marioBody.AddForce(Vector2.up * deathImpulse, ForceMode2D.Impulse);
     }
-    // public void RestartButtonCallback(int input)
-    // {
-    //     // reset everything
-    //     ResetGame();
-    //     // resume time
-    //     Time.timeScale = 1.0f;
-    // }
-
-    // private void ResetGame()
-    // {
-    //     // reset position
-    //     marioBody.transform.position = new Vector3(-5.2f, -3.4f, 0.0f);
-    //     // reset sprite direction
-    //     faceRightState = true;
-    //     marioSprite.flipX = false;
-    //     // reset score
-    //     scoreText.text = "Score: 0";
-    //     jumpOverGoomba.score = 0;
-    //     // reset Goomba
-    //     foreach (Transform eachChild in enemies.transform)
-    //     {
-    //         eachChild.transform.localPosition = eachChild.GetComponent<EnemyMovement>().startPosition;
-    //     }
-    //     // reset blocks
-    //     foreach (Transform eachChild in obstacles.transform)
-    //     {
-    //         CoinHandler boxCoinHandler = eachChild.GetChild(0).gameObject.GetComponent<CoinHandler>();
-    //         if (boxCoinHandler.hasCoin) { boxCoinHandler.spawnedCoin = false; }
-    //     }
-
-    //     // reset animation
-    //     marioAnimator.SetTrigger("gameRestart");
-    //     alive = true;
-    //     // reset camera position
-    //     gameCamera.position = new Vector3(0, 0, -10);
-
-    //     gameOverScreen.SetActive(false);
-    //     scoreText.transform.localPosition = new Vector3(-660f, 490f, 0f);
-    //     resetButton.transform.localPosition = new Vector3(880f, 490f, 0f);
-    // }
     public void GameRestart()
     {
         // reset position

@@ -23,4 +23,12 @@ public class EnemyManager : MonoBehaviour
             child.GetComponent<EnemyMovement>().GameRestart();
         }
     }
+
+    public void StopScoreCount()
+    {
+        foreach (Transform child in transform)
+        {
+            child.GetComponent<EnemyMovement>().StopScoreCount();
+        }
+    }
 }
