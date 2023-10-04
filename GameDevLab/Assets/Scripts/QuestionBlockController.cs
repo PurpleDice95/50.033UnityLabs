@@ -27,7 +27,7 @@ public class QuestionBlockController : MonoBehaviour
         if (coinHandler.spawnedCoin && qBlockBody.transform.position.y <= startPos + 0.01)
         {
             qBlockBody.bodyType = RigidbodyType2D.Static;
-            questionBoxAnimator.SetTrigger("Collected");
+            questionBoxAnimator.SetBool("Collected", true);
         }
         else
         {

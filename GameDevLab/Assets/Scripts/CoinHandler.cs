@@ -7,6 +7,8 @@ public class CoinHandler : MonoBehaviour
     public bool hasCoin = true;
     public bool spawnedCoin = false;
     public GameObject coinPrefab;
+
+
     void OnCollisionEnter2D(Collision2D col)
     {
         if (
@@ -18,6 +20,11 @@ public class CoinHandler : MonoBehaviour
             spawnedCoin = true;
             Instantiate(coinPrefab, transform.position, Quaternion.identity);
         }
+    }
+
+    public void GameRestart()
+    {
+        if (hasCoin) {spawnedCoin = false;}
     }
 
 }

@@ -83,7 +83,7 @@ AnimationClip:
   - time: 1
     functionName: GameOverScene
     data: 
-    objectReferenceParameter: {fileID: 0}
+    objectReferenceParameter: {fileID: 11500000, guid: 4f791e7ae2b42b34cb74f6cb3187ca5e, type: 3}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0

@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8399140419599617979}
   - component: {fileID: 7425792682076171451}
   - component: {fileID: 2090512556399554107}
+  - component: {fileID: 8960805290221322704}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
@@ -75,7 +76,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_Sprite: {fileID: 21300150, guid: 82bc45c4496284f4c823d1b837f65ec4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -121,6 +122,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   coinAudio: {fileID: 2090512556399554107}
+  animEventTool: {fileID: 0}
 --- !u!82 &2090512556399554107
 AudioSource:
   m_ObjectHideFlags: 0
@@ -217,6 +219,22 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &8960805290221322704
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2326194120379769061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 57cf99c22576f0d41af4d3009a4e6c67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parameter: 1
+  useInt:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &8992786461409634168
 GameObject:
   m_ObjectHideFlags: 0

@@ -45,9 +45,14 @@ public class EnemyMovement : MonoBehaviour
             Movegoomba();
         }
     }
+    
 
-    void OnTriggerEnter2D(Collider2D other)
+    public void GameRestart()
     {
-        // Debug.Log(other.gameObject.name);
+        transform.localPosition = startPosition;
+        originalX = transform.position.x;
+        moveRight = -1;
+        ComputeVelocity();
     }
+
 }

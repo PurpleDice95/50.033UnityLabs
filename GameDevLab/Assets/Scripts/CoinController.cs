@@ -5,6 +5,12 @@ using UnityEngine;
 public class CoinController : MonoBehaviour
 {
     public AudioSource coinAudio;
+    public AnimationEventIntTool animEventTool;
+    void Start () {
+        Debug.Log("Hellow");
+        animEventTool = GetComponent<AnimationEventIntTool>();
+        animEventTool.useInt.AddListener(FindObjectOfType<GameManager>().IncreaseScore);
+    }
 
     public void playCoinSound()
     {
