@@ -24,7 +24,7 @@ public class QuestionBlockController : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (coinHandler.spawnedCoin && qBlockBody.transform.position.y <= startPos + 0.01)
+        if (coinHandler.spawned && qBlockBody.transform.position.y <= startPos + 0.01)
         {
             qBlockBody.bodyType = RigidbodyType2D.Static;
             questionBoxAnimator.SetBool("Collected", true);
@@ -32,6 +32,8 @@ public class QuestionBlockController : MonoBehaviour
         else
         {
             qBlockBody.bodyType = RigidbodyType2D.Dynamic;
+            
+            questionBoxAnimator.SetBool("Collected", false);
         }
     }
 }

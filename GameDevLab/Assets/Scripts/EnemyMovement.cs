@@ -26,10 +26,12 @@ public class EnemyMovement : MonoBehaviour
     public LayerMask layerMask;
     private bool stomped = false;
     private bool countScoreState = true;
-    GameManager gameManager;
+
+    void Awake () {
+        GameManager.instance.gameRestart.AddListener(GameRestart);
+    }
     void Start()
     {
-        gameManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<GameManager>();
         enemyBody = GetComponent<Rigidbody2D>();
         enemyCollider = GetComponent<BoxCollider2D>();
         goombaAnimator = GetComponent<Animator>();
@@ -64,7 +66,7 @@ public class EnemyMovement : MonoBehaviour
     void FixedUpdate()
     {
         if (countScoreState && !stomped && Physics2D.BoxCast(transform.position, stompBoxSize, 0, transform.up, maxDistance, layerMask)) {
-            gameManager.IncreaseScore(1);
+            GameManager.instance.IncreaseScore(1);
             goombaAudio.PlayOneShot(goombaAudio.clip);
             enemyCollider.enabled = false;
             stomped=true;

@@ -2,9 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
+    override  public  void  Awake(){
+        base.Awake();
+    }
+
     // events
     public UnityEvent gameStart;
     public UnityEvent gameRestart;
@@ -18,12 +23,14 @@ public class GameManager : MonoBehaviour
     {
         gameStart.Invoke();
         Time.timeScale = 1.0f;
+        // subscribe to scene manager scene change
+        SceneManager.activeSceneChanged += SceneSetup;
     }
-
-    // Update is called once per frame
-    void Update()
+    public void SceneSetup(Scene current, Scene next)
     {
-
+        gameStart.Invoke();
+        SetScore(score);
+    
     }
 
     public void GameRestart()

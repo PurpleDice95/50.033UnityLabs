@@ -22,7 +22,7 @@ public class ObstacleManager : MonoBehaviour
         {
             GameObject boxObj = child.GetChild(0).gameObject;
             CoinHandler boxCoinHandler = boxObj.GetComponent<CoinHandler>();
-            if (boxCoinHandler.hasCoin) { boxCoinHandler.spawnedCoin = false; }
+            if (boxCoinHandler.hasCoin) { boxCoinHandler.spawned = false; }
             if (boxObj.tag == "QuestionBlock") { boxObj.GetComponent<Animator>().SetBool("Collected", false); }
         }
     }

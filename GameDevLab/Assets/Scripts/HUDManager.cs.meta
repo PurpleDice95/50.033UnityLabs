@@ -1,27 +1,11 @@
 fileFormatVersion: 2
 guid: 77473895a41b5174f91e97f0d021f25a
-PluginImporter:
+MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  iconMap: {}
-  executionOrder: {}
-  defineConstraints: []
-  isPreloaded: 0
-  isOverridable: 0
-  isExplicitlyReferenced: 0
-  validateReferences: 1
-  platformData:
-  - first:
-      Any: 
-    second:
-      enabled: 1
-      settings: {}
-  - first:
-      Editor: Editor
-    second:
-      enabled: 0
-      settings:
-        DefaultValueInitialized: true
+  defaultReferences: []
+  executionOrder: 80
+  icon: {instanceID: 0}
   userData: 
   assetBundleName: 
   assetBundleVariant: 

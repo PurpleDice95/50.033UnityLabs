@@ -8,7 +8,7 @@ public class CoinController : MonoBehaviour
     public AnimationEventIntTool animEventTool;
     void Start () {
         animEventTool = GetComponent<AnimationEventIntTool>();
-        animEventTool.useInt.AddListener(FindObjectOfType<GameManager>().IncreaseScore);
+        animEventTool.useInt.AddListener(GameManager.instance.IncreaseScore);
     }
 
     public void playCoinSound()

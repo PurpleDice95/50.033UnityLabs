@@ -4,6 +4,13 @@ using UnityEngine;
 
 public class EnemyManager : MonoBehaviour
 {
+    void Awake()
+    {
+        // Here they are, the
+        // other instructions
+        GameManager.instance.gameRestart.AddListener(GameRestart);
+        GameManager.instance.marioDeath.AddListener(StopScoreCount);
+    }
     // Start is called before the first frame update
     void Start()
     {

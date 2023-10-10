@@ -4,6 +4,7 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.EventSystems;
 using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
@@ -16,31 +17,47 @@ public class PlayerMovement : MonoBehaviour
     public GameObject enemies;
     public GameObject obstacles;
     // public JumpOverGoomba jumpOverGoomba;
-    public Transform gameCamera;
+    private Transform gameCamera;
     // public GameObject gameOverScreen;
     // public GameObject resetButton;
     public LayerMask wallJumpLayerMask;
     public Vector3 wallBoxSize;
     public AudioSource marioDeath;
 
-    GameManager gameManager;
 
     // state
     [System.NonSerialized]
     public bool alive = true;
 
+    void  Awake(){
+        // subscribe to Game Restart event
+        GameManager.instance.gameRestart.AddListener(GameRestart);
+    }
+
     // Start is called before the first frame update
     void Start()
     {
+        gameCamera = GameObject.FindGameObjectWithTag("MainCamera").transform;
         marioSprite = GetComponent<SpriteRenderer>();
         // Set to be 30 FPS
         Application.targetFrameRate = 30;
         marioBody = GetComponent<Rigidbody2D>();
-        gameManager = GameObject.FindGameObjectWithTag("Manager").GetComponent<GameManager>();
 
         marioAnimator = GetComponent<Animator>();
         marioAnimator.SetBool("onGround", onGroundState);
+
+        // // subscribe to scene manager scene change
+    //     // SceneManager.activeSceneChanged += SetStartingPosition;
     }
+
+    // // public void SetStartingPosition(Scene current, Scene next)
+    // // {
+    // //     if (next.name == "World 1-2")
+    // //     {
+    // //         // change the position accordingly in your World-1-2 case
+    // //         this.transform.position = new Vector3(-4.39f, -3.38f, 0.0f);
+    // //     }
+    // // }
 
     // Update is called once per frame
     void Update()
@@ -206,7 +223,7 @@ public class PlayerMovement : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy") && alive)
         {
             // play death animation
-            gameManager.MarioDeath();
+            GameManager.instance.MarioDeath();
             marioAnimator.Play("mario-die");
             marioDeath.PlayOneShot(marioDeath.clip);
             alive = false;
@@ -215,7 +232,7 @@ public class PlayerMovement : MonoBehaviour
 
     public void GameOverScene()
     {
-        gameManager.GameOver();
+        GameManager.instance.GameOver();
     }
     void PlayDeathImpulse()
     {
