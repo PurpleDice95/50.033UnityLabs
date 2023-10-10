@@ -17,7 +17,7 @@ public class GameManager : Singleton<GameManager>
     public UnityEvent gameOver;
     public UnityEvent marioDeath;
 
-    private int score = 0;
+    public IntVariable gameScore;
 
     void Start()
     {
@@ -29,28 +29,28 @@ public class GameManager : Singleton<GameManager>
     public void SceneSetup(Scene current, Scene next)
     {
         gameStart.Invoke();
-        SetScore(score);
+        SetScore(gameScore);
     
     }
 
     public void GameRestart()
     {
         // reset score
-        score = 0;
-        SetScore(score);
+        gameScore.Value = 0;
+        SetScore(gameScore);
         gameRestart.Invoke();
         Time.timeScale = 1.0f;
     }
 
     public void IncreaseScore(int increment)
     {
-        score += increment;
-        SetScore(score);
+        gameScore.ApplyChange(increment);
+        SetScore(gameScore);
     }
 
-    public void SetScore(int score)
+    public void SetScore(IntVariable score)
     {
-        scoreChange.Invoke(score);
+        scoreChange.Invoke(score.Value);
     }
 
 

@@ -8,21 +8,23 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 10;
     private Rigidbody2D marioBody;
     private Animator marioAnimator;
     private SpriteRenderer marioSprite;
     private bool faceRightState = true;
-    // public TextMeshProUGUI scoreText;
     public GameObject enemies;
     public GameObject obstacles;
-    // public JumpOverGoomba jumpOverGoomba;
     private Transform gameCamera;
-    // public GameObject gameOverScreen;
-    // public GameObject resetButton;
-    public LayerMask wallJumpLayerMask;
-    public Vector3 wallBoxSize;
     public AudioSource marioDeath;
+
+    public GameConstants gameConstants;
+    float deathImpulse;
+    float upSpeed;
+    float maxSpeed;
+    float speed;
+    float maxFallSpeed;
+    float defaultGravity;
+    float fallGravity;
 
 
     // state
@@ -37,6 +39,15 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        // Set constants
+        speed = gameConstants.speed;
+        maxSpeed = gameConstants.maxSpeed;
+        deathImpulse = gameConstants.deathImpulse;
+        upSpeed = gameConstants.upSpeed;
+        maxFallSpeed = gameConstants.maxFallSpeed;
+        defaultGravity = gameConstants.defaultGravity;
+        fallGravity = gameConstants.fallGravity;
+
         gameCamera = GameObject.FindGameObjectWithTag("MainCamera").transform;
         marioSprite = GetComponent<SpriteRenderer>();
         // Set to be 30 FPS
@@ -85,12 +96,6 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
-
-    public float upSpeed = 20;
-    public float deathImpulse = 10;
-    public float maxFallSpeed = 10;
-    public float defaultGravity = 1;
-    public float fallGravity = 3;
     private bool onGroundState = true;
 
     // Pick out layers to check collison
@@ -107,7 +112,6 @@ public class PlayerMovement : MonoBehaviour
             marioAnimator.SetBool("onGround", onGroundState);
         }
     }
-    public float maxSpeed = 20;
 
     private bool moving = false;
     void FixedUpdate()
@@ -209,14 +213,6 @@ public class PlayerMovement : MonoBehaviour
         marioAudio.PlayOneShot(marioAudio.clip);
     }
 
-    // helper
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawCube(transform.position + transform.right * 0.5f, wallBoxSize);
-        Gizmos.DrawCube(transform.position - transform.right * 0.5f, wallBoxSize);
-        
-    }
 
     void OnTriggerEnter2D(Collider2D other)
     {

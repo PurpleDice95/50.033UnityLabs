@@ -11,6 +11,10 @@ public  class GameConstants : ScriptableObject
     public int maxSpeed;
     public int upSpeed;
     public int deathImpulse;
+    
+    public float maxFallSpeed = 10;
+    public float defaultGravity = 1;
+    public float fallGravity;
     public Vector3 marioStartingPosition;
 
     // Goomba's movement
