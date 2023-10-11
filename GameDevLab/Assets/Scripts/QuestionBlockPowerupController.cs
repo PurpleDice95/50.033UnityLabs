@@ -9,6 +9,10 @@ public class QuestionBoxPowerupController : BasePowerup, IPowerupController
 
     private Animator questionBoxAnimator;
 
+    void Awake () {
+        GameManager.instance.gameRestart.AddListener(GameRestart);
+    }
+
     // Start is called before the first frame update
     protected override void Start()
     {
@@ -33,10 +37,11 @@ public class QuestionBoxPowerupController : BasePowerup, IPowerupController
     }
 
     // used by animator
-    public void Disable()
+    public void Disable() {}
+
+    public void GameRestart()
     {
-        // this.GetComponent<Rigidbody2D>().bodyType = RigidbodyType2D.Static;
-        // transform.localPosition = new Vector3(0, 0, 0);
+        spawned = false;
     }
     public override void SpawnPowerup()
     {

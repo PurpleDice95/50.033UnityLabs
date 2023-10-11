@@ -174,7 +174,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   goombaAudio: {fileID: 7257088778857926874}
-  startPosition: {x: 3, y: -3.88, z: 0}
+  startPositionIdx: 0
+  startPos: {fileID: 11400000, guid: 71aaf2cf735b22144918ed8f089ca0e3, type: 2}
   stompBoxSize: {x: 0.8, y: 0.3, z: 1}
   maxDistance: 0.5
   layerMask:

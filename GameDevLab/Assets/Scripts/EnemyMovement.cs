@@ -19,7 +19,8 @@ public class EnemyMovement : MonoBehaviour
 
     public AudioSource goombaAudio;
 
-    public Vector3 startPosition = new Vector3(3.0f, -2.9f, 0.0f);
+    public int startPositionIdx;
+    public StartPositions startPos;
 
     public Vector3 stompBoxSize;
     public float maxDistance;
@@ -94,7 +95,7 @@ public class EnemyMovement : MonoBehaviour
 
     public void GameRestart()
     {
-        transform.localPosition = startPosition;
+        transform.localPosition = startPos.goombaStartPos[startPositionIdx];
         originalX = transform.position.x;
         moveRight = -1;
 
