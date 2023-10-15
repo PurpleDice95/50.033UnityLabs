@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class CameraControllerCopy : MonoBehaviour
 {
 
     public Transform player; // Mario's Transform
@@ -13,17 +13,7 @@ public class CameraController : MonoBehaviour
     private float viewportHalfWidth;
     private Vector3 startPosition;
 
-    void Start()
-    {
-        player = GameObject.FindGameObjectWithTag("Player").transform;
-        // get coordinate of the bottomleft of the viewport
-        // z doesn't matter since the camera is orthographic
-        Vector3 bottomLeft = Camera.main.ViewportToWorldPoint(new Vector3(0, 0, 0));
-        viewportHalfWidth = Mathf.Abs(bottomLeft.x - this.transform.position.x);
-        offset = this.transform.position.x - player.position.x;
-        startX = this.transform.position.x;
-        endX = endLimit.transform.position.x - viewportHalfWidth;
-    }
+
 
     void Update()
     {
