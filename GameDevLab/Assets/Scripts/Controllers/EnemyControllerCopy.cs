@@ -1,11 +1,12 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Data.Common;
 using UnityEngine;
+using System.Data.Common;
 
-public class EnemyMovement : MonoBehaviour
+public class EnemyControllerCopy : MonoBehaviour
+
 {
+    public GameConstants gameConstants;
 
     private float originalX;
     private float maxOffset = 5.0f;
@@ -97,15 +98,20 @@ public class EnemyMovement : MonoBehaviour
 
     public void GameRestart()
     {
+        Debug.Log("Goomba Restarted");
+        this.gameObject.SetActive(true);
+        this.GetComponent<Collider2D>().enabled = true;
+        this.GetComponent<Animator>().Play("Idle");
+
         transform.localPosition = startPos.goombaStartPos[startPositionIdx];
         originalX = transform.position.x;
         moveRight = -1;
 
         stomped = false;
-        enemyCollider.enabled = true;
-        countScoreState = true;
-        gameObject.SetActive(true);
-        goombaAnimator.SetBool("dead", false);
+        //enemyCollider.enabled = true;
+        //countScoreState = true;
+        //gameObject.SetActive(true);
+        //goombaAnimator.SetBool("dead", false);
         ComputeVelocity();
     }
 

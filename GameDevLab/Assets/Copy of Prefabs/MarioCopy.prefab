@@ -143,6 +143,7 @@ GameObject:
   - component: {fileID: 5672326013199203581}
   - component: {fileID: 8163512060594331921}
   - component: {fileID: 1326601022562109908}
+  - component: {fileID: 2007920140191186869}
   m_Layer: 8
   m_Name: MarioCopy
   m_TagString: Player
@@ -517,3 +518,22 @@ MonoBehaviour:
   m_DefaultActionMap: gameplay
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &2007920140191186869
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6220832831821265521}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 37e0344e645e1134f9bffb8239cb0838, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  marioAnimator: {fileID: 5672326013199203581}
+  enemies: {fileID: 0}
+  obstacles: {fileID: 0}
+  gameCamera: {fileID: 0}
+  marioDeath: {fileID: 1536984951358524928}
+  gameConstants: {fileID: 11400000, guid: de1334f742a7ded49bee765f00b5688b, type: 2}
+  marioAudio: {fileID: 8163512060594331921}

@@ -23,7 +23,9 @@ public class CameraControllerCopy : MonoBehaviour
             this.transform.position = new Vector3(desiredX, this.transform.position.y, this.transform.position.z);
     }
 
-    void GameRestart()
+
+
+    public void GameRestart()
     {
         // reset camera position
         transform.position = startPosition;
