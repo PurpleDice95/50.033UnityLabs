@@ -443,10 +443,6 @@ PrefabInstance:
       propertyPath: startPosition.x
       value: 11
       objectReference: {fileID: 0}
-    - target: {fileID: 2708978732710993072, guid: ef6054713cc0c024fb5715683d85ba9e, type: 3}
-      propertyPath: startPositionIdx
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 2761612978360775364, guid: ef6054713cc0c024fb5715683d85ba9e, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.019932
@@ -2924,10 +2920,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1905548333053385181, guid: 9a5b4d27d0b761a4493e8ffbaa213868, type: 3}
-      propertyPath: backgroundMusic
-      value: 
-      objectReference: {fileID: 1977706221}
     - target: {fileID: 6388100072195934929, guid: 9a5b4d27d0b761a4493e8ffbaa213868, type: 3}
       propertyPath: m_Camera
       value: 

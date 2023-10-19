@@ -8,7 +8,6 @@ public class PauseButtonController : MonoBehaviour, IInteractiveButton
     private bool isPaused = false;
     public Sprite pauseIcon;
     public Sprite playIcon;
-    public AudioSource backgroundMusic;
     private Image image;
     // Start is called before the first frame update
     void Start()
@@ -29,12 +28,10 @@ public class PauseButtonController : MonoBehaviour, IInteractiveButton
         if (isPaused)
         {
             image.sprite = playIcon;
-            backgroundMusic.Pause();
         }
         else
         {
             image.sprite = pauseIcon;
-            backgroundMusic.Play();
         }
     }
 }

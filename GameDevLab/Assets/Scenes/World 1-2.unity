@@ -1458,10 +1458,6 @@ PrefabInstance:
       propertyPath: marioDeath
       value: 
       objectReference: {fileID: 1121754413}
-    - target: {fileID: 750353786803217202, guid: 877b6d64a27367c488c65d45f3fa2d71, type: 3}
-      propertyPath: gameConstants
-      value: 
-      objectReference: {fileID: 11400000, guid: de1334f742a7ded49bee765f00b5688b, type: 2}
     - target: {fileID: 6220832831821265521, guid: 877b6d64a27367c488c65d45f3fa2d71, type: 3}
       propertyPath: m_Name
       value: Mario
@@ -1908,10 +1904,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1905548333053385181, guid: 9a5b4d27d0b761a4493e8ffbaa213868, type: 3}
-      propertyPath: backgroundMusic
-      value: 
-      objectReference: {fileID: 786124093}
     - target: {fileID: 7623781995707505779, guid: 9a5b4d27d0b761a4493e8ffbaa213868, type: 3}
       propertyPath: m_Name
       value: Canvas
@@ -1965,7 +1957,6 @@ MonoBehaviour:
   marioDeath:
     m_PersistentCalls:
       m_Calls: []
-  gameScore: {fileID: 11400000, guid: 8e9b8d4c6fbf90b4d8fe8471afa9d9b8, type: 2}
 --- !u!4 &1510576712
 Transform:
   m_ObjectHideFlags: 0
@@ -2441,10 +2432,6 @@ PrefabInstance:
     - target: {fileID: 2708978732710993072, guid: ef6054713cc0c024fb5715683d85ba9e, type: 3}
       propertyPath: startPosition.y
       value: 16.038443
-      objectReference: {fileID: 0}
-    - target: {fileID: 2708978732710993072, guid: ef6054713cc0c024fb5715683d85ba9e, type: 3}
-      propertyPath: startPositionIdx
-      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2761612978360775364, guid: ef6054713cc0c024fb5715683d85ba9e, type: 3}
       propertyPath: m_LocalPosition.x
